@@ -1,1 +1,6 @@
-# MyDuka-Backend-pt2
+# DukaDash-Backend
+## Database Design
+
+![alt text](image.png)
+
+
