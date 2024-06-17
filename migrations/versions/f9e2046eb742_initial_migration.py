@@ -1,8 +1,8 @@
 """Initial migration
 
-Revision ID: 1e9baa94e437
+Revision ID: f9e2046eb742
 Revises: 
-Create Date: 2024-06-05 20:59:26.625604
+Create Date: 2024-06-17 21:41:43.206664
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1e9baa94e437'
+revision = 'f9e2046eb742'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -47,6 +47,7 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('username', sa.String(length=100), nullable=False),
     sa.Column('email', sa.String(length=100), nullable=False),
+    sa.Column('password', sa.String(length=100), nullable=False),
     sa.Column('image', sa.String(length=100), nullable=True),
     sa.Column('role', sa.String(length=100), nullable=False),
     sa.Column('status', sa.Enum('OFFLINE', 'ONLINE', 'DEACTIVATED', 'ON_LEAVE', name='employeesstatus'), nullable=True),
@@ -61,6 +62,7 @@ def upgrade():
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('username', sa.String(length=100), nullable=False),
     sa.Column('email', sa.String(length=100), nullable=False),
+    sa.Column('password', sa.String(length=100), nullable=False),
     sa.Column('image', sa.String(length=100), nullable=True),
     sa.Column('role', sa.String(length=100), nullable=False),
     sa.Column('status', sa.Enum('OFFLINE', 'ONLINE', 'DEACTIVATED', 'ON_LEAVE', name='employeesstatus'), nullable=True),

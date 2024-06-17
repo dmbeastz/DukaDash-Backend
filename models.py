@@ -1,13 +1,13 @@
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy_serializer import SerializerMixin
 from enum import Enum
 from sqlalchemy.orm import validates
 from datetime import datetime
 import re
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 db = SQLAlchemy()
+
 
 class MerchantStatus(Enum):
     OFFLINE = 'Offline'
@@ -19,7 +19,7 @@ class Merchant(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    _password = db.Column('password', db.String(100), nullable=False)
+    _password = db.Column('password', db.String(100), nullable=False)  # Use _password to store the hashed password
     image = db.Column(db.String(100), nullable=True)
     role = db.Column(db.String(100), default='merchant', nullable=False)
     status = db.Column(db.Enum(MerchantStatus), default=MerchantStatus.ONLINE, nullable=True)
@@ -42,15 +42,6 @@ class Merchant(db.Model, SerializerMixin):
         assert '@' in email
         assert re.match(r"[^@]+@[^@]+\.[^@]+", email), "Invalid email format"
         return email
-
-    @validates('password')
-    def validate_password(self, key, password):
-        assert len(password) > 8
-        assert re.search(r"[A-Z]", password), "Password should contain at least one uppercase letter"
-        assert re.search(r"[a-z]", password), "Password should contain at least one lowercase letter"
-        assert re.search(r"[0-9]", password), "Password should contain at least one digit"
-        assert re.search(r"[!@#$%^&*(),.?\":{}|<>]", password), "Password should contain at least one special character"
-        return password
 
     def serialize(self):
         return {
@@ -94,7 +85,7 @@ class Admin(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    _password = db.Column('password', db.String(100), nullable=False)  # Use _password to store the hashed password
     image = db.Column(db.String(100), nullable=True)
     role = db.Column(db.String(100), default='admin', nullable=False)
     status = db.Column(db.Enum(EmployeesStatus), default=EmployeesStatus.ONLINE)
@@ -117,15 +108,6 @@ class Admin(db.Model, SerializerMixin):
         assert re.match(r"[^@]+@[^@]+\.[^@]+", email), "Invalid email format"
         return email
 
-    @validates('password')
-    def validate_password(self, key, password):
-        assert len(password) > 8
-        assert re.search(r"[A-Z]", password), "Password should contain at least one uppercase letter"
-        assert re.search(r"[a-z]", password), "Password should contain at least one lowercase letter"
-        assert re.search(r"[0-9]", password), "Password should contain at least one digit"
-        assert re.search(r"[!@#$%^&*(),.?\":{}|<>]", password), "Password should contain at least one special character"
-        return password
-
     def serialize(self):
         return {
             'id': self.id,
@@ -146,7 +128,7 @@ class Clerk(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    _password = db.Column('password', db.String(100), nullable=False)  # Use _password to store the hashed password
     image = db.Column(db.String(100), nullable=True)
     role = db.Column(db.String(100), default='clerk', nullable=False)
     status = db.Column(db.Enum(EmployeesStatus), default=EmployeesStatus.ONLINE)
@@ -168,15 +150,6 @@ class Clerk(db.Model, SerializerMixin):
         assert '@' in email
         assert re.match(r"[^@]+@[^@]+\.[^@]+", email), "Invalid email format"
         return email
-
-    @validates('password')
-    def validate_password(self, key, password):
-        assert len(password) > 8
-        assert re.search(r"[A-Z]", password), "Password should contain at least one uppercase letter"
-        assert re.search(r"[a-z]", password), "Password should contain at least one lowercase letter"
-        assert re.search(r"[0-9]", password), "Password should contain at least one digit"
-        assert re.search(r"[!@#$%^&*(),.?\":{}|<>]", password), "Password should contain at least one special character"
-        return password
 
     def serialize(self):
         return {
