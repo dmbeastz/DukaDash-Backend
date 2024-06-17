@@ -107,9 +107,9 @@ def main():
 
         # Seed Requests
         requests = [
-            Request(store_id=1, product_name="Product A", quantity=10, requester_name="Victor Leyian", requester_contact="1234567890", status="Pending"),
-            Request(store_id=2, product_name="Product B", quantity=15, requester_name="Teddy Maina", requester_contact="0987654321", status="Approved"),
-            Request(store_id=3, product_name="Product C", quantity=20, requester_name="Brian Murigi", requester_contact="9876543210", status="Pending")
+            Request(store_id=1, product_name="Milk", quantity=10, requester_name="Victor Leyian", requester_contact="1234567890", status="Pending"),
+            Request(store_id=2, product_name="Salt", quantity=15, requester_name="Teddy Maina", requester_contact="0987654321", status="Approved"),
+            Request(store_id=3, product_name="Bread", quantity=20, requester_name="Brian Murigi", requester_contact="9876543210", status="Pending")
         ]
         db.session.add_all(requests)
         db.session.commit()

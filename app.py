@@ -3,8 +3,8 @@ from flask_jwt_extended import JWTManager,jwt_required, create_access_token,get_
 from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
 import os
-from models import db, User,Product,Store,PaymentStatus,Payment,Request
 from flask_restful import Api, Resource
+from models import db
 from flask_migrate import Migrate
 from flask_cors import CORS,cross_origin
 import models
